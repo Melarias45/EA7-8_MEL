@@ -35,3 +35,15 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+th {
+    color: #6189d8;
+    background-color: #c7f4ff;
+}
+
+ion-label {
+    color: #6189d8;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
