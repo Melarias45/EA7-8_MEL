@@ -11,9 +11,9 @@
 
     <h2>Lista de tareas</h2>
     <!--Botones/Inputs-->
-    <ion-label>Agregar Tarea</ion-label><br>
+    <ion-label>Agregar nueva tarea</ion-label><br> 
     <input #nameInput type="text" placeholder="Nombre">
-    <input #dateInput type="date"><br><br>
+    <input #dateInput type="date"><br> 
     <button (click)="addItem(nameInput.value, dateInput.value); nameInput.value=''; dateInput.value=''">Agregar</button>
 
     <!--inicia la tabla-->
@@ -34,12 +34,11 @@
           <td>{{ item.name }}</td>
           <td>{{ item.date }}</td>
           <td>
-            <input type="checkbox" [checked]="item.completed">
-          </td>
-          <td>
             <input type="checkbox" [checked]="item.completed" (change)="toggleCompleted(item.id)">
           </td>
-          <!--falta agregar otra cosa aqui que la miss va a subir-->
+          <td>
+            <button (click)="removeItem(item.id)">Eliminar</button>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -44,6 +44,27 @@ th {
 ion-label {
     color: #6189d8;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     margin-top: 10px;
+}
+h2{
+    margin: 10px;
+    font-weight: bold;
+    color: #0633a3;
+    
+}
+button{
+    border: 2px solid #0633a3;
+    padding: 2px;
+    color: #0633a3;
+    background-color: #d4def7;
+    border-radius: 5px;
+    height: 25px;
+    width: 60px;
+    font-weight: bold;
+}
+input{
+    border-radius: 4px;
+    margin: 5px;
+    border: 2px solid #0633a3;
 }
