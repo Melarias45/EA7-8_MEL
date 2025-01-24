@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      EA7 Melisa Arias Lista de Tareas
+      EA8 Melisa Arias Creación y consulta de usuario
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,21 +9,27 @@
 <ion-content [fullscreen]="true">
   <div id="container" class="ion text-center">
 
-    <h2>Lista de tareas</h2>
+    <h2>Lista de usuarios</h2>
     <!--Botones/Inputs-->
-    <ion-label>Agregar nueva tarea</ion-label><br> 
-    <input #nameInput type="text" placeholder="Nombre">
-    <input #dateInput type="date"><br> 
-    <button (click)="addItem(nameInput.value, dateInput.value); nameInput.value=''; dateInput.value=''">Agregar</button>
+    <ion-label>Agregar usuario</ion-label><br> 
+    <input #nameInput type="text" placeholder="Nombre" [class.invalid]="nameError">
+    <p *ngIf="nameError" class="error">El nombre es obligatorio y debe tener al menos 3 caracteres.</p>
+
+    <input #phoneInput type="text" placeholder="Telefono" [class.invalid]="phoneError">
+    <p *ngIf="phoneError" class="error">El teléfono es obligatorio y SOLO debe tener 10 dígitos.</p>
+
+
+    
+    <button (click)="validateAndAdd(nameInput.value, phoneInput.value); nameInput.value=''; phoneInput.value=''">Agregar</button>
+
 
     <!--inicia la tabla-->
     <table border="1" style="margin: 10px; width: 100%; text-align: center;">
       <thead>
         <tr> <!--Titulos-->
           <th>ID</th>
-          <th>Nombre</th>
-          <th>Fecha</th>
-          <th>Completado</th>
+          <th>Usuario</th>
+          <th>Telefono</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -31,12 +37,19 @@
       <tbody>
         <tr *ngFor="let item of items"> <!--Listar items-->
           <td>{{ item.id }}</td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.date }}</td>
-          <td>
-            <input type="checkbox" [checked]="item.completed" (change)="toggleCompleted(item.id)">
+          <td *ngIf="editingItem?.id !== item.id">{{ item.name }}</td>
+          <td *ngIf="editingItem?.id !== item.id">{{item.phone}}</td>
+          <!--Editar item-->
+          <td *ngIf="editingItem?.id === item.id"> <!--El editing item no puede ser NULL-->
+            <div *ngIf="editingItem">
+              <input [(ngModel)]="editingItem.name" type="text" placeholder="Nombre">
+              <input [(ngModel)]="editingItem.phone" type="text" placeholder="Teléfono">
+            </div>
           </td>
           <td>
+            <button *ngIf="editingItem?.id !== item.id" (click)="enableEdit(item)">Editar</button>
+            <button *ngIf="editingItem?.id === item.id" (click)="saveEdit()">Guardar</button>
+            <button *ngIf="editingItem?.id === item.id" (click)="cancelEdit()">Cancelar</button>
             <button (click)="removeItem(item.id)">Eliminar</button>
           </td>
         </tr>
