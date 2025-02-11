@@ -1,59 +1,58 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      EA8 Melisa Arias Creación y consulta de usuario
+      Examen P1 MelA
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div id="container" class="ion text-center">
+<ion-content>
+  <ion-header>Examen P2</ion-header>
+  <div id="formulario" class="ion text-center">
+    <input #nameInput type="text" placeholder="Nombre de la pelicula" [class.invalid]="dataError">
+    <p *ngIf="dataError" class="error">Este campo es obligatorio.</p>
 
-    <h2>Lista de usuarios</h2>
-    <!--Botones/Inputs-->
-    <ion-label>Agregar usuario</ion-label><br> 
-    <input #nameInput type="text" placeholder="Nombre" [class.invalid]="nameError">
-    <p *ngIf="nameError" class="error">El nombre es obligatorio y debe tener al menos 3 caracteres.</p>
+    <input #dateInput type="text" placeholder="Fecha de lanzamiento" [class.invalid]="dataError">
+    <p *ngIf="dataError" class="error">Este campo es obligatorio.</p>
 
-    <input #phoneInput type="text" placeholder="Telefono" [class.invalid]="phoneError">
-    <p *ngIf="phoneError" class="error">El teléfono es obligatorio y SOLO debe tener 10 dígitos.</p>
+    <input #dataInput01 type="text" placeholder="Nombre del productor" [class.invalid]="dataError">
+    <p *ngIf="dataError" class="error">Este campo es obligatorio.</p>
+
+    <input #dataInput02 type="text" placeholder="Casa prductora" [class.invalid]="dataError">
+    <p *ngIf="dataError" class="error">Este campo es obligatorio.</p>
+
+    <input #dataInput03 type="text" placeholder="Protagonista" [class.invalid]="dataError">
+    <p *ngIf="dataError" class="error">Este campo es obligatorio.</p>
 
 
-    
-    <button (click)="validateAndAdd(nameInput.value, phoneInput.value); nameInput.value=''; phoneInput.value=''">Agregar</button>
+    <button
+      (click)="validateAndAdd(nameInput.value, dateInput.value, dataInput01.value, dataInput02.value, dataInput03.value); nameInput.value=''; dateInput.value=''; dataInput01.value='';  dataInput02.value='';  dataInput03.value='';">Agregar</button>
 
-
-    <!--inicia la tabla-->
+    <!--Tabla inicia aqui-->
     <table border="1" style="margin: 10px; width: 100%; text-align: center;">
       <thead>
         <tr> <!--Titulos-->
           <th>ID</th>
-          <th>Usuario</th>
-          <th>Telefono</th>
-          <th>Acciones</th>
+          <th>Nombre de pelicula</th>
+          <th>Año</th>
+          <th>Productor</th>
+          <th>Casa productora</th>
+          <th>Protagonista</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr *ngFor="let item of items"> <!--Listar items-->
+        <tr *ngFor="let item of items">
           <td>{{ item.id }}</td>
-          <td *ngIf="editingItem?.id !== item.id">{{ item.name }}</td>
-          <td *ngIf="editingItem?.id !== item.id">{{item.phone}}</td>
-          <!--Editar item-->
-          <td *ngIf="editingItem?.id === item.id"> <!--El editing item no puede ser NULL-->
-            <div *ngIf="editingItem">
-              <input [(ngModel)]="editingItem.name" type="text" placeholder="Nombre">
-              <input [(ngModel)]="editingItem.phone" type="text" placeholder="Teléfono">
-            </div>
-          </td>
-          <td>
-            <button *ngIf="editingItem?.id !== item.id" (click)="enableEdit(item)">Editar</button>
-            <button *ngIf="editingItem?.id === item.id" (click)="saveEdit()">Guardar</button>
-            <button *ngIf="editingItem?.id === item.id" (click)="cancelEdit()">Cancelar</button>
-            <button (click)="removeItem(item.id)">Eliminar</button>
-          </td>
+          <td>{{ item.name }}</td>
+          <td>{{item.year}}</td>
+          <td>{{item.producer}}</td>
+          <td>{{item.house}}</td>
+          <td>{{item.prota}}</td>
         </tr>
       </tbody>
     </table>
+
+
   </div>
 </ion-content>

@@ -8,91 +8,52 @@ import { NavController } from '@ionic/angular';
   standalone: false,
 })
 export class HomePage {
-  items: { id: number; name: string; phone: string}[] = [];
+  items: { id: number; name: string; year: string; producer: string; house: string; prota: string; }[] = [];
   nextId: number = 1;
+  dataError: boolean = false;
+  constructor() { }
 
-  nameError: boolean = false;
-  phoneError : boolean = false;
-  editingItem: { id: number; name: string; phone: string } | null = null;
- //almacen termporal del usuario que se esta editando
+  validateAndAdd(name: string, year: string, producer: string, house: string, prota: string) {
+    this.dataError = false;
 
-  
-
-  constructor(public navCtrl: NavController) { }
-
-  validateAndAdd(name: string, phone: string): void {
-    this.nameError = false;
-    this.phoneError = false;
-
-    
-    if (!name.trim() || name.trim().length < 3) {
-      this.nameError = true;
+    if (!name.trim()) {
+      this.dataError = true;
     }
 
-  
-    const phoneRegex = /^\d{10}$/; //con 10 digits soloo
-    if (!phone.trim() || !phoneRegex.test(phone)) {
-      this.phoneError = true;
+    if (!year.trim()) {
+      this.dataError = true;
     }
 
-    //agrega cuando no hay errores
-    if (!this.nameError && !this.phoneError) {
-      this.addItem(name, phone); //usa la funcion add item :)
+    if (!producer.trim()) {
+      this.dataError = true;
+    }
+
+    if (!house.trim()) {
+      this.dataError = true;
+    }
+
+    if (!prota.trim()) {
+      this.dataError = true;
+    }
+
+    if (!this.dataError) {
+      this.addItem(name, year, producer, house, prota);
     }
   }
 
-
-  addItem(name: string, phone: string): void {
-    if (name.trim() && phone.trim()) {
+  addItem(name: string, year: string, producer: string, house: string, prota: string): void {
+    if (name.trim() && year.trim() && producer.trim() && house.trim() && prota.trim()) {
       this.items.push({
         id: this.nextId++,
         name: name.trim(),
-        phone: phone.trim(),
+        year: year.trim(),
+        producer: producer.trim(),
+        house: house.trim(),
+        prota: prota.trim(),
       });
     } else {
-      alert('El nombre y la fecha no pueden estar vacios');
+      alert('Uno de los campos esta vacio');
     }
-  }
-
-  //funcion para activar la edicion
-  enableEdit(item: { id: number; name: string; phone: string }): void {
-    this.editingItem = { ...item };
-  }
-
-  // Guardar cambios de la edicion
-  saveEdit(): void {
-    if (!this.editingItem) return;
-
-    const { id, name, phone } = this.editingItem;
-
-    if (!name.trim() || name.trim().length < 3) {
-      alert('El nombre es obligatorio y debe tener al menos 3 caracteres.');
-      return;
-    }
-
-    const phoneRegex = /^\d{10}$/;
-    if (!phone.trim() || !phoneRegex.test(phone)) {
-      alert('El teléfono es obligatorio y debe tener 10 dígitos.');
-      return;
-    }
-
-    const index = this.items.findIndex((item) => item.id === id);
-    if (index !== -1) {
-      this.items[index] = { id, name: name.trim(), phone: phone.trim() };
-    }
-
-    this.editingItem = null;
-  }
-
-  cancelEdit(): void {
-    this.editingItem = null;
-  }
-
-
-
-  //eliminar elemento de la lista
-  removeItem(id: number): void {
-    this.items = this.items.filter(item => item.id !== id);
   }
 
 }
