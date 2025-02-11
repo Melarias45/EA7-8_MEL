@@ -1,0 +1,43 @@
+<div id="formulario" class="ion text-center">
+  <input #nameInput type="text" placeholder="Nombre de la pelicula" [class.invalid]="dataError">
+  <p *ngIf="dataError" class="error">Este campo es obligatorio.</p>
+
+  <input #dateInput type="text" placeholder="Fecha de lanzamiento" [class.invalid]="dataError">
+  <p *ngIf="dataError" class="error">Este campo es obligatorio.</p>
+
+  <input #dataInput01 type="text" placeholder="Nombre del productor" [class.invalid]="dataError">
+  <p *ngIf="dataError" class="error">Este campo es obligatorio.</p>
+
+  <input #dataInput02 type="text" placeholder="Casa productora" [class.invalid]="dataError">
+  <p *ngIf="dataError" class="error">Este campo es obligatorio.</p>
+
+  <input #dataInput03 type="text" placeholder="Protagonista" [class.invalid]="dataError">
+  <p *ngIf="dataError" class="error">Este campo es obligatorio.</p>
+
+
+  <button
+    (click)="validateAndAdd(nameInput.value, dateInput.value, dataInput01.value, dataInput02.value, dataInput03.value); nameInput.value=''; dateInput.value=''; dataInput01.value='';  dataInput02.value='';  dataInput03.value='';">Agregar</button>
+
+  <table border="1" style="margin: 10px; width: 100%; text-align: center;">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre de pelicula</th>
+        <th>Año</th>
+        <th>Productor</th>
+        <th>Casa productora</th>
+        <th>Protagonista</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{item.year}}</td>
+        <td>{{item.producer}}</td>
+        <td>{{item.house}}</td>
+        <td>{{item.prota}}</td>
+      </tr>
+    </tbody>
+  </table>

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ExamenService } from '../examen.service';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +13,8 @@ export class HomePage {
   items: { id: number; name: string; year: string; producer: string; house: string; prota: string; }[] = [];
   nextId: number = 1;
   dataError: boolean = false;
-  constructor() { }
+  constructor(private ExamenService: ExamenService, private router: Router) { }
+  listInfo: any = [];
 
   validateAndAdd(name: string, year: string, producer: string, house: string, prota: string) {
     this.dataError = false;
@@ -54,6 +57,13 @@ export class HomePage {
     } else {
       alert('Uno de los campos esta vacio');
     }
+  }
+
+  ngOnInit() {
+    this.ExamenService.getlistInfo().subscribe((data: any) => {
+      this.listInfo = data;
+    });
+
   }
 
 }
